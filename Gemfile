@@ -19,7 +19,6 @@ group :development, :test do
 	gem 'spring'
 	gem 'rspec-rails'
   gem 'factory_girl_rails'
-	gem 'web-console', '~> 2.0'
 	gem 'guard-rspec'
 end
 
@@ -31,6 +30,7 @@ group :test do
 end
 
 group :development do
+	gem 'web-console', '~> 2.0'
   gem 'annotate'
   gem 'better_errors'
   gem 'binding_of_caller'
