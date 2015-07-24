@@ -27,6 +27,7 @@ group :test do
 	gem 'capybara'
   gem 'launchy'
   gem 'shoulda-matchers'
+  gem 'database_cleaner'
 end
 
 group :development do
@@ -40,5 +41,5 @@ end
 
 
 # Use ActiveModel has_secure_password
-# gem 'bcrypt', '~> 3.1.7'
+gem 'bcrypt', '~> 3.1.7'
 
