@@ -1,0 +1,5 @@
+Todo:
+
+1) refactor specs, particularly auth_spec
+2) then refactor user and sessions controller
+3) finish auth by adding logout and persistence
