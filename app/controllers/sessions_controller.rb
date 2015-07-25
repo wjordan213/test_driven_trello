@@ -8,6 +8,10 @@ class SessionsController < ApplicationController
     if @user
       login! @user
       redirect_to '/static_pages/start'
+    else
+      @user = User.new
+      flash.now[:errors] = ["Invalid input. Try again"]
+      render :new
     end
   end
 end

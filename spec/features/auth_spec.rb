@@ -57,7 +57,7 @@ feature "The signup process" do
   end
 end
 
-feature "Logging in"do
+feature "Logging in" do
   it "has a login page" do
     visit root_url
 
@@ -77,6 +77,29 @@ feature "Logging in"do
       click_on "Submit"
 
       expect(page).to have_content user.username
+    end
+  end
+  
+  context "unsuccessfully" do
+    it "displays an error message if given a username that is not in the database" do
+      visit new_session_url
+
+      fill_in "user_username", with: "harrisharris"
+      fill_in "user_password", with: "password"
+      click_on "Submit"
+
+      expect(page).to have_content("Invalid input. Try again")
+    end
+
+    it "displays an error message if given the wrong password" do 
+      FactoryGirl.create(:user)
+      visit new_session_url
+
+      fill_in "user_username", with: "harrisjordan"
+      fill_in "user_password", with: "passwordsasdf"
+      click_on "Submit"
+
+      expect(page).to have_content("Invalid input. Try again")
     end
   end
 end
