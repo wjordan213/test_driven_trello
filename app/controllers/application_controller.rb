@@ -7,4 +7,10 @@ class ApplicationController < ActionController::Base
     user.update!(session_token: User.generate_session_token)
     session[:session_token] = user.session_token
   end
+
+  private
+
+  def user_params
+    params.require(:user).permit(:username, :password)
+  end
 end
