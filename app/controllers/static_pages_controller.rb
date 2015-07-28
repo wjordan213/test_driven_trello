@@ -3,6 +3,6 @@ class StaticPagesController < ApplicationController
   end
 
   def start
-    @user = User.find_by(session_token: session[:session_token])
+    @user = current_user
   end
 end
