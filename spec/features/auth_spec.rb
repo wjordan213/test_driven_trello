@@ -109,26 +109,19 @@ feature "Logging out" do
   context "successfully" do
     before(:each) do
       FactoryGirl.create(:user)
-    end
-
-    it "logs the user out of the session" do
       sign_in_as username: 'harrisjordan', password: 'password'
-      
-      user = User.find_by(username: 'harrisjordan')
-
-      click_on 'logout'
-
-      user.reload
-
-      expect(user.session_token).to be_nil 
     end
 
     it "redirects the user to the home page" do
-      sign_in_as username: 'harrisjordan', password: 'password'
-
       click_on "logout"
 
       expect(page).to have_content("Home Page")
+    end
+
+    it "the homepage displays the login and signup buttons" do
+      click_on "logout"
+
+      expect(page).to have_content("Signup")
     end
   end
 end
