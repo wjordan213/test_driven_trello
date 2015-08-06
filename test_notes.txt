@@ -1,0 +1,46 @@
+Rails testing:
+
+-Questions specific to this project:
+  -How should I go about testing auth with various user permissions?
+    -unit testing?
+
+-General questions
+  -Which tests are valuable and which don't provide any value?
+  -What scenarios should be included in acceptance tests?
+
+-The value of testing
+  -Make sure that a feature is implemented properly
+  -refactor code without fear of breaking other parts of application
+  -have instant feedback about code design(unit tests).
+    -The rule of thumb is that clean code is easy to test.
+  -No longer have to manually check things
+  
+-Mocks and stubs
+  -stubs:
+    -something created in the test which accepts a predetermined message and returns a predetermined response
+    -don't stub non-existent methodsl
+  -mocks:
+    -a message that or may not be sent to another method
+    -allow testing in isolation which speeds things up tremendously
+    -they improve design because "Mock objects force you to write a clean and OOP cod - if you don't, tests will simply get really ugly, which is the symptom of bad design choices" 
+    -Important Rule to follow
+      -Only mock public or protected methods, which apparently can be referred to as collaborators or peers
+      -Only mock types you own, not api's or anything like that
+  -Do more research on what mocks actually are
+
+
+What not to test:
+  -Don't test ActiveRecord and friends
+    -i.e. validations, associations, relations, simple scopes
+  -Don't test generic CRUD controllers
+
+What needs to be tested:
+  -tests for "not trivial scopes"
+  -tests for domain methods on the model, just making sure they do what their supposed to
+  
+  Controllers
+    -Everything none-CRUD, especially auth-related logic
+    -Always use mock objects and stub everything in controllers
+
+  -All business logic needs to be fully tested
+    -usecases, services, policy objects, value objects etc.

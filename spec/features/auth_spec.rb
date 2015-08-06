@@ -12,7 +12,7 @@ feature "The signup process" do
   feature "signing up a user" do
     context "successfully" do
       it "shows the username on the homepage after signup" do
-        sign_up_as username: 'harrisjordan', password: 'password'
+        sign_up_as_valid_user
 
         expect(page).to have_content("harrisjordan")
       end
@@ -28,7 +28,7 @@ feature "The signup process" do
       it "displays an error message if given a username that is already taken" do
         FactoryGirl.create(:user)
         
-        sign_up_as username: 'harrisjordan', password: 'password'
+        sign_up_as_valid_user
 
         expect(page).to have_content("Username has already been taken")
       end
@@ -43,17 +43,9 @@ feature "The signup process" do
 end
 
 feature "Logging in" do
-  it "does not display the logout button when logged out" do
-    visit root_url
-
-    expect(page).not_to have_content("logout")
-  end
-
   it "displays the sign in and sign up buttons when logged out" do
     visit root_url
-
     expect(page).to have_content("Sign in")
-
     expect(page).to have_content("Signup")
   end
 
@@ -64,14 +56,20 @@ feature "Logging in" do
 
     expect(page).to have_content("Login")
   end
-    
+
+  it "does not display the logout button when logged out" do
+    visit root_url
+
+    expect(page).not_to have_content("logout")
+  end
+
   context "successfully" do
     before(:each) do
       user = FactoryGirl.create(:user)
-
-      sign_in_as(username: 'harrisjordan', password: 'password')
+      sign_in_as_valid_user
     end
 
+      
     it "shows the username on the homepage after login" do
       expect(page).to have_content 'harrisjordan'
     end
@@ -87,19 +85,14 @@ feature "Logging in" do
   end
   
   context "unsuccessfully" do
-    before(:each) do
-      FactoryGirl.create(:user)
-    end
 
     it "displays an error message if given a username that is not in the database" do
       sign_in_as username: 'harrisharris', password: 'password'
-
       expect(page).to have_content("Invalid input. Try again")
     end
 
     it "displays an error message if given the wrong password" do 
       sign_in_as username: 'harrisjordan', password: 'passwordasdf'
-
       expect(page).to have_content("Invalid input. Try again")
     end
   end
@@ -109,7 +102,7 @@ feature "Logging out" do
   context "successfully" do
     before(:each) do
       FactoryGirl.create(:user)
-      sign_in_as username: 'harrisjordan', password: 'password'
+      sign_in_as_valid_user
     end
 
     it "redirects the user to the home page" do
