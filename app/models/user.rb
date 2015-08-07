@@ -4,6 +4,12 @@ class User < ActiveRecord::Base
   validates :password_digest, presence: true
   validates :password, length: { minimum: 6 }, allow_nil: true
 
+  has_many(:boards,
+        class_name: "Board",
+        foreign_key: :user_id,
+        primary_key: :id
+        )
+
   def User.find_by_credentials(username, password)
     user = User.find_by(username: username[1])
     # byebug
