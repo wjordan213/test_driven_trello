@@ -25,6 +25,7 @@ end
 group :test do
   gem 'faker'
 	gem 'capybara'
+  gem 'capybara-webkit'
   gem 'launchy'
   gem 'shoulda-matchers'
   gem 'database_cleaner'

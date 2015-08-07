@@ -9,7 +9,7 @@ module Features
   end
 
   def sign_up_as_valid_user
-    visit new_user_url
+    visit new_user_path
 
     fill_in("user_username", with: "harrisjordan")
     fill_in("user_password", with: "password")
