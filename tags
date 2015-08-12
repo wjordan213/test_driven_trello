@@ -1,0 +1,57 @@
+!_TAG_FILE_FORMAT	2	/extended format; --format=1 will not append ;" to lines/
+!_TAG_FILE_SORTED	1	/0=unsorted, 1=sorted, 2=foldcase/
+!_TAG_PROGRAM_AUTHOR	Darren Hiebert	/dhiebert@users.sourceforge.net/
+!_TAG_PROGRAM_NAME	Exuberant Ctags	//
+!_TAG_PROGRAM_URL	http://ctags.sourceforge.net	/official site/
+!_TAG_PROGRAM_VERSION	5.8	//
+ActiveSupport	test/test_helper.rb	/^class ActiveSupport::TestCase$/;"	c
+AddSessionTokenToUser	db/migrate/20150724195850_add_session_token_to_user.rb	/^class AddSessionTokenToUser < ActiveRecord::Migration$/;"	c
+Api	app/controllers/api/boards_controller.rb	/^module Api$/;"	m
+Application	config/application.rb	/^  class Application < Rails::Application$/;"	c	class:TestDrivenTrello
+ApplicationController	app/controllers/application_controller.rb	/^class ApplicationController < ActionController::Base$/;"	c
+ApplicationHelper	app/helpers/application_helper.rb	/^module ApplicationHelper$/;"	m
+Board	app/models/board.rb	/^class Board < ActiveRecord::Base$/;"	c
+BoardsController	app/controllers/api/boards_controller.rb	/^  class BoardsController < ApplicationController$/;"	c	class:Api
+BoardsHelper	app/helpers/boards_helper.rb	/^module BoardsHelper$/;"	m
+ChangeUsersUsernameAndPasswordDigest	db/migrate/20150725013058_change_users_username_and_password_digest.rb	/^class ChangeUsersUsernameAndPasswordDigest < ActiveRecord::Migration$/;"	c
+CreateBoards	db/migrate/20150807140345_create_boards.rb	/^class CreateBoards < ActiveRecord::Migration$/;"	c
+CreateUsers	db/migrate/20150724182350_create_users.rb	/^class CreateUsers < ActiveRecord::Migration$/;"	c
+Features	spec/support/features/auth_spec_helper.rb	/^module Features$/;"	m
+Features	spec/support/features/board_spec_helper.rb	/^module Features$/;"	m
+SessionsController	app/controllers/sessions_controller.rb	/^class SessionsController < ApplicationController$/;"	c
+StaticPagesController	app/controllers/static_pages_controller.rb	/^class StaticPagesController < ApplicationController$/;"	c
+TestDrivenTrello	config/application.rb	/^module TestDrivenTrello$/;"	m
+User	app/models/user.rb	/^class User < ActiveRecord::Base$/;"	c
+UsersController	app/controllers/users_controller.rb	/^class UsersController < ApplicationController$/;"	c
+change	db/migrate/20150724182350_create_users.rb	/^  def change$/;"	f	class:CreateUsers
+change	db/migrate/20150724195850_add_session_token_to_user.rb	/^  def change$/;"	f	class:AddSessionTokenToUser
+change	db/migrate/20150725013058_change_users_username_and_password_digest.rb	/^  def change$/;"	f	class:ChangeUsersUsernameAndPasswordDigest
+change	db/migrate/20150807140345_create_boards.rb	/^  def change$/;"	f	class:CreateBoards
+create	app/controllers/api/boards_controller.rb	/^    def create$/;"	f	class:Api.BoardsController
+create	app/controllers/sessions_controller.rb	/^  def create$/;"	f	class:SessionsController
+create	app/controllers/users_controller.rb	/^  def create$/;"	f	class:UsersController
+create_board	spec/support/features/board_spec_helper.rb	/^  def create_board(title)$/;"	f	class:Features
+create_valid_board	spec/support/features/board_spec_helper.rb	/^  def create_valid_board$/;"	f	class:Features
+current_user	app/controllers/application_controller.rb	/^  def current_user$/;"	f	class:ApplicationController
+destroy	app/controllers/api/boards_controller.rb	/^    def destroy$/;"	f	class:Api.BoardsController
+destroy	app/controllers/sessions_controller.rb	/^  def destroy$/;"	f	class:SessionsController
+edit	app/controllers/api/boards_controller.rb	/^    def edit$/;"	f	class:Api.BoardsController
+find_by_credentials	app/models/user.rb	/^  def User.find_by_credentials(username, password)$/;"	F	class:User
+generate_password_digest	app/models/user.rb	/^  def User.generate_password_digest(password)$/;"	F	class:User
+generate_session_token	app/models/user.rb	/^  def User.generate_session_token$/;"	F	class:User
+index	app/controllers/api/boards_controller.rb	/^    def index$/;"	f	class:Api.BoardsController
+index	app/controllers/static_pages_controller.rb	/^  def index$/;"	f	class:StaticPagesController
+is_password?	app/models/user.rb	/^  def is_password?(password)$/;"	f	class:User
+logged_in?	app/controllers/application_controller.rb	/^  def logged_in?$/;"	f	class:ApplicationController
+login!	app/controllers/application_controller.rb	/^  def login!(user)$/;"	f	class:ApplicationController
+logout!	app/controllers/application_controller.rb	/^  def logout!$/;"	f	class:ApplicationController
+new	app/controllers/api/boards_controller.rb	/^    def new$/;"	f	class:Api.BoardsController
+new	app/controllers/sessions_controller.rb	/^  def new$/;"	f	class:SessionsController
+new	app/controllers/users_controller.rb	/^  def new$/;"	f	class:UsersController
+password=	app/models/user.rb	/^  def password=(password)$/;"	f	class:User
+sign_in_as	spec/support/features/auth_spec_helper.rb	/^  def sign_in_as(options)$/;"	f	class:Features
+sign_in_as_valid_user	spec/support/features/auth_spec_helper.rb	/^  def sign_in_as_valid_user$/;"	f	class:Features
+sign_up_as	spec/support/features/auth_spec_helper.rb	/^  def sign_up_as(options)$/;"	f	class:Features
+sign_up_as_valid_user	spec/support/features/auth_spec_helper.rb	/^  def sign_up_as_valid_user$/;"	f	class:Features
+start	app/controllers/static_pages_controller.rb	/^  def start$/;"	f	class:StaticPagesController
+user_params	app/controllers/application_controller.rb	/^  def user_params$/;"	f	class:ApplicationController

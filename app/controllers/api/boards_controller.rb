@@ -2,8 +2,12 @@ module Api
   class BoardsController < ApplicationController
 
     def index
-      @boards = current_user.boards
-      render 'api/boards/index.json.jbuilder'
+      if logged_in?
+        @boards = current_user.boards
+        render 'api/boards/index.json.jbuilder'
+      else
+        redirect_to new_session_url
+      end
     end
 
     def new

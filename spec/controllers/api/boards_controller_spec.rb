@@ -29,6 +29,16 @@ describe Api::BoardsController do
   describe "user is logged out" do
 
     describe "boards index" do
+
+      before(:each) do
+        allow(controller).to receive(:logged_in?).and_return(false)
+        allow(controller).to receive(:current_user).and_return(nil)
+      end
+
+      it "redirects the user to the login page" do
+        get :index
+        expect(response).to redirect_to new_session_url
+      end
     end
 
   end
