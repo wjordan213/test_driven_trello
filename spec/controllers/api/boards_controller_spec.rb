@@ -10,7 +10,7 @@ describe Api::BoardsController do
       allow(controller).to receive(:current_user).and_return(user)
     end
 
-    describe "boards index" do
+    describe "#index" do
 
       let(:board1) { double(Board, title: "hello") }
       let(:board2) { double(Board, title: "world") }
@@ -24,22 +24,51 @@ describe Api::BoardsController do
 
     end
 
+    describe "#create" do
+      
+      describe "with valid params" do
+
+        it "creates a board" do
+          expect do
+            post :create, { board: { title: "hello", user_id: 1 } }
+          end.to change(Board, :count).by(1)
+        end
+      end
+      
+      describe "with invalid params" do
+        it "does not create a board" do
+          expect do
+            post :create, { board: { title: nil, user_id: nil } }
+          end.to_not change(Board, :count)
+        end
+
+        it "renders status code of 400 invalid" do
+          post :create, { board: { title: nil, user_id: nil } }
+          expect(response.status).to eq(400)
+        end
+      end
+    end
+
   end
 
   describe "user is logged out" do
 
+    before(:each) do
+      allow(controller).to receive(:logged_in?).and_return(false)
+    end
+
     describe "boards index" do
-
-      before(:each) do
-        allow(controller).to receive(:logged_in?).and_return(false)
-        allow(controller).to receive(:current_user).and_return(nil)
-      end
-
       it "redirects the user to the login page" do
         get :index
         expect(response).to redirect_to new_session_url
       end
     end
 
+    describe "#create" do
+      it "redirects the user to the login page" do
+        post :create, { board: { title: "Hello", user_id: 1 } }
+        expect(response).to redirect_to new_session_url
+      end
+    end
   end
 end

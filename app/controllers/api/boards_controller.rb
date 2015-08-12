@@ -1,25 +1,35 @@
 module Api
-  class BoardsController < ApplicationController
+  class BoardsController < ApiController
+
+    before_filter :set_default_response_format
 
     def index
-      if logged_in?
-        @boards = current_user.boards
-        render 'api/boards/index.json.jbuilder'
-      else
-        redirect_to new_session_url
-      end
+      @boards = current_user.boards
     end
 
-    def new
+    def show
     end
 
     def create
+      @board = Board.new(board_params)
+      if @board.save
+        render :show
+      else
+        render json: @board.errors.full_messages, status: :bad_request
+      end
     end
 
     def destroy
     end
 
-    def edit
+    private
+
+    def set_default_response_format
+      request.format = :json
+    end
+
+    def board_params
+      params.require(:board).permit(:title, :user_id)
     end
 
   end
