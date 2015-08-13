@@ -53,7 +53,7 @@ describe Api::BoardsController do
       let(:board) { instance_double(Board, title: "hello", user_id: 1) }
 
       before(:each) do
-        allow(Board).to receive(:find).and_return(board)
+        stub_board_model(board)
       end
 
       it "renders json for boards belonging to the current user" do
@@ -76,7 +76,7 @@ describe Api::BoardsController do
       let(:board) { FactoryGirl.create(Board) } 
 
       before(:each) do
-        allow(Board).to receive(:find).and_return(board)
+        stub_board_model(board)
       end
 
       it "destroys a user's boards" do

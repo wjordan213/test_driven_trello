@@ -9,12 +9,7 @@ module Api
 
     def show
       @board = Board.find(params[:id])
-
-      if @board.is_owner?(current_user)
-        render :show
-      else
-        render json: ["That isn't your board!"], status: :unauthorized
-      end
+      execute_if_user_owns_board { render :show }
     end
 
     def create
@@ -29,15 +24,21 @@ module Api
     def destroy
       @board = Board.find(params[:id])
 
-      if @board.is_owner?(current_user)
+      execute_if_user_owns_board do
         @board.destroy
         render :show
-      else
-        render json: ["That isn't your board!"], status: :unauthorized
       end
     end
 
     private
+
+    def execute_if_user_owns_board(&prc)
+      if @board.is_owner?(current_user)
+        prc.call
+      else
+        render json: ["That isn't your board!"], status: :unauthorized
+      end
+    end
 
     def set_default_response_format
       request.format = :json
