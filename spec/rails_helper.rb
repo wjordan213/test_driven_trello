@@ -8,6 +8,7 @@ require 'rspec/rails'
 require 'support/database_cleaner.rb'
 require 'support/features/auth_spec_helper.rb'
 require 'support/features/board_spec_helper.rb'
+require 'support/controllers/api/boards_controller_spec_helper.rb'
 
 #eAdd additional requires below this line. Rails is not loaded until this point!
 
@@ -57,4 +58,5 @@ RSpec.configure do |config|
   config.infer_spec_type_from_file_location!
   config.include FactoryGirl::Syntax::Methods
   config.include Features, type: :feature
+  config.include BoardsControllerSpecHelper, type: :controller
 end

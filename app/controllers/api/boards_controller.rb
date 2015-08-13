@@ -2,12 +2,19 @@ module Api
   class BoardsController < ApiController
 
     before_filter :set_default_response_format
-
+    
     def index
       @boards = current_user.boards
     end
 
     def show
+      @board = Board.find(params[:id])
+
+      if @board.is_owner?(current_user)
+        render :show
+      else
+        render json: ["That isn't your board!"], status: :unauthorized
+      end
     end
 
     def create
@@ -20,6 +27,14 @@ module Api
     end
 
     def destroy
+      @board = Board.find(params[:id])
+
+      if @board.is_owner?(current_user)
+        @board.destroy
+        render :show
+      else
+        render json: ["That isn't your board!"], status: :unauthorized
+      end
     end
 
     private

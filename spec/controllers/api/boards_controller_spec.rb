@@ -1,10 +1,9 @@
 require "rails_helper"
-
 describe Api::BoardsController do
 
   describe "user is logged in" do
     render_views
-    let(:user) { double(User) }
+    let(:user) { double(User, id: 1) }
 
     before(:each) do
       allow(controller).to receive(:current_user).and_return(user)
@@ -49,6 +48,60 @@ describe Api::BoardsController do
       end
     end
 
+    describe "#show" do
+
+      let(:board) { instance_double(Board, title: "hello", user_id: 1) }
+
+      before(:each) do
+        allow(Board).to receive(:find).and_return(board)
+      end
+
+      it "renders json for boards belonging to the current user" do
+        allow(board).to receive(:is_owner?).and_return(true)
+        get :show, { id: 1 }
+        expect(response).to render_template(:show)
+      end
+
+      it "does not allow a user to access another user's boards" do
+        allow(board).to receive(:is_owner?).and_return(false)
+        get :show, { id: 1 }
+        expect(response.status).to eq(401)
+        expect(response).to_not render_template(:show)
+      end
+
+    end
+
+    describe "#destroy" do
+
+      let(:board) { FactoryGirl.create(Board) } 
+
+      before(:each) do
+        allow(Board).to receive(:find).and_return(board)
+      end
+
+      it "destroys a user's boards" do
+        allow(board).to receive(:is_owner?).and_return(true)
+        expect do
+          delete :destroy, { id: 2 }
+        end.to change(Board, :count).by(-1)
+      end
+
+      it "does not allow a user to destroy a board belonging to another user" do
+        allow(board).to receive(:is_owner?).and_return(false)
+        expect do
+          delete :destroy, { id: 2 }
+        end.to_not change(Board, :count)
+        expect(response.status).to eq(401)
+      end
+    end
+
+    describe "#update" do
+
+      it "updates a user's boards"
+
+      it "does not allow a user to update a board belonging to another user"
+
+    end
   end
 
   describe "user is logged out" do
@@ -70,5 +123,6 @@ describe Api::BoardsController do
         expect(response).to redirect_to new_session_url
       end
     end
+
   end
 end

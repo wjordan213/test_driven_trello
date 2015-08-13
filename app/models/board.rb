@@ -6,4 +6,8 @@ class Board < ActiveRecord::Base
           foreign_key: :user_id,
           primary_key: :id
           ) 
+  
+  def is_owner?(user)
+    user.id == self.user_id
+  end
 end
