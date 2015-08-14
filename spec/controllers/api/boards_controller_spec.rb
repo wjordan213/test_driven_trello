@@ -1,9 +1,11 @@
 require "rails_helper"
 describe Api::BoardsController do
 
+  let (:board) { double(Board, title: "hello", user_id: 1)}
+
   describe "user is logged in" do
     render_views
-    let(:user) { double(User, id: 1) }
+    let(:user) { instance_double(User, id: 1) }
 
     before(:each) do
       allow(controller).to receive(:current_user).and_return(user)
@@ -11,9 +13,8 @@ describe Api::BoardsController do
 
     describe "#index" do
 
-      let(:board1) { double(Board, title: "hello") }
       let(:board2) { double(Board, title: "world") }
-      let(:boards) { [board1, board2] }
+      let(:boards) { [board, board2] }
 
       it "renders the user's boards" do
         allow(user).to receive(:boards).and_return(boards)
@@ -50,10 +51,8 @@ describe Api::BoardsController do
 
     describe "#show" do
 
-      let(:board) { instance_double(Board, title: "hello", user_id: 1) }
-
       before(:each) do
-        stub_board_model(board)
+        mock_board_model(board)
       end
 
       it "renders json for boards belonging to the current user" do
@@ -73,23 +72,21 @@ describe Api::BoardsController do
 
     describe "#destroy" do
 
-      let(:board) { FactoryGirl.create(Board) } 
-
       before(:each) do
-        stub_board_model(board)
+        create_and_mock_board
       end
 
       it "destroys a user's boards" do
-        allow(board).to receive(:is_owner?).and_return(true)
+        allow(@board).to receive(:is_owner?).and_return(true)
         expect do
-          delete :destroy, { id: 2 }
+          delete :destroy, { id: @board.id }
         end.to change(Board, :count).by(-1)
       end
 
       it "does not allow a user to destroy a board belonging to another user" do
-        allow(board).to receive(:is_owner?).and_return(false)
+        allow(@board).to receive(:is_owner?).and_return(false)
         expect do
-          delete :destroy, { id: 2 }
+          delete :destroy, { id: @board.id }
         end.to_not change(Board, :count)
         expect(response.status).to eq(401)
       end
@@ -97,9 +94,24 @@ describe Api::BoardsController do
 
     describe "#update" do
 
-      it "updates a user's boards"
+      before(:each) do
+        create_and_mock_board
+      end
 
-      it "does not allow a user to update a board belonging to another user"
+      it "updates a user's boards" do
+        expect(@board.title).to eq("hello")
+        patch :update, { id: @board.id, board: {title: "a new title"} }
+        @board.reload
+        expect(@board.title).to eq("a new title")
+      end
+
+      it "does not allow a user to update a board belonging to another user" do
+        allow(@board).to receive(:is_owner?).and_return(false)
+        expect(@board.title).to eq("hello")
+        patch :update, { id: @board.id, board: {title: "a new title"} }
+        @board.reload
+        expect(@board.title).to eq("hello")
+      end
 
     end
   end

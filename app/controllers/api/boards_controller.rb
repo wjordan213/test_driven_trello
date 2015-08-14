@@ -21,6 +21,14 @@ module Api
       end
     end
 
+    def update
+      @board = Board.find(params[:id])
+      execute_if_user_owns_board do
+        @board.update!(board_params)
+        render :show
+      end
+    end
+
     def destroy
       @board = Board.find(params[:id])
 
