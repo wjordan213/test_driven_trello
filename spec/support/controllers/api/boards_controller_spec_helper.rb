@@ -9,7 +9,7 @@ module BoardsControllerSpecHelper
     mock_board_model(@board)
   end
 
-  def update_board
+  def update_board_title
     patch :update, { id: @board.id, board: {title: "a new title"} }
     @board.reload
   end

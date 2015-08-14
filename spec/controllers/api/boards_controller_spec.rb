@@ -100,16 +100,16 @@ describe Api::BoardsController do
       end
 
       it "updates a user's boards" do
-        confirm_start_title
-        update_board
-        confirm_new_title
+        expect do
+          update_board_title
+        end.to change(@board, :title).to("a new title")
       end
 
       it "does not allow a user to update a board belonging to another user" do
         mock_board_ownership(@board, false)
-        confirm_start_title
-        update_board
-        confirm_new_title("hello")
+        expect do
+          update_board_title
+        end.to_not change(@board, :title)
       end
 
     end
