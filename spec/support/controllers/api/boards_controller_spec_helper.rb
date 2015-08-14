@@ -25,4 +25,8 @@ module BoardsControllerSpecHelper
   def mock_board_ownership(board, ownership = true)
     allow(board).to receive(:is_owner?).and_return(ownership)
   end
+
+  def request_to_create_board(options)
+    post :create, { board: options }
+  end
 end

@@ -30,7 +30,7 @@ describe Api::BoardsController do
 
         it "creates a board" do
           expect do
-            post :create, { board: { title: "hello", user_id: 1 } }
+            request_to_create_board({title: "hello", user_id: 1})
           end.to change(Board, :count).by(1)
         end
       end
@@ -38,7 +38,7 @@ describe Api::BoardsController do
       describe "with invalid params" do
         it "does not create a board" do
           expect do
-            post :create, { board: { title: nil, user_id: nil } }
+            request_to_create_board({title: nil, user_id: nil})
           end.to_not change(Board, :count)
         end
 
