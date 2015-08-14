@@ -1,4 +1,5 @@
 require "rails_helper"
+
 describe Api::BoardsController do
 
   let (:board) { double(Board, title: "hello", user_id: 1)}
@@ -43,7 +44,7 @@ describe Api::BoardsController do
         end
 
         it "renders status code of 400 invalid" do
-          post :create, { board: { title: nil, user_id: nil } }
+          request_to_create_board({title: nil, user_id: nil})
           expect(response.status).to eq(400)
         end
       end

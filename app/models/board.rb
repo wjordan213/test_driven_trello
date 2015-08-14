@@ -8,6 +8,6 @@ class Board < ActiveRecord::Base
           ) 
   
   def is_owner?(user)
-    user.id == self.user_id
+    user && user.id == self.user_id
   end
 end
