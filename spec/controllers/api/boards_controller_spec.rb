@@ -56,13 +56,13 @@ describe Api::BoardsController do
       end
 
       it "renders json for boards belonging to the current user" do
-        allow(board).to receive(:is_owner?).and_return(true)
+        mock_board_ownership(board)
         get :show, { id: 1 }
         expect(response).to render_template(:show)
       end
 
       it "does not allow a user to access another user's boards" do
-        allow(board).to receive(:is_owner?).and_return(false)
+        mock_board_ownership(board, false)
         get :show, { id: 1 }
         expect(response.status).to eq(401)
         expect(response).to_not render_template(:show)
@@ -99,18 +99,16 @@ describe Api::BoardsController do
       end
 
       it "updates a user's boards" do
-        expect(@board.title).to eq("hello")
-        patch :update, { id: @board.id, board: {title: "a new title"} }
-        @board.reload
-        expect(@board.title).to eq("a new title")
+        confirm_start_title
+        update_board
+        confirm_new_title
       end
 
       it "does not allow a user to update a board belonging to another user" do
-        allow(@board).to receive(:is_owner?).and_return(false)
-        expect(@board.title).to eq("hello")
-        patch :update, { id: @board.id, board: {title: "a new title"} }
-        @board.reload
-        expect(@board.title).to eq("hello")
+        mock_board_ownership(@board, false)
+        confirm_start_title
+        update_board
+        confirm_new_title("hello")
       end
 
     end
