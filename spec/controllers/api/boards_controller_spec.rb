@@ -2,7 +2,7 @@ require "rails_helper"
 
 describe Api::BoardsController do
 
-  let (:board) { double(Board, title: "hello", user_id: 1)}
+  let (:board) { double(Board, id: 1, title: "hello", user_id: 1)}
 
   describe "user is logged in" do
     render_views
@@ -14,7 +14,7 @@ describe Api::BoardsController do
 
     describe "#index" do
 
-      let(:board2) { double(Board, title: "world") }
+      let(:board2) { double(Board, id: 2, title: "world") }
       let(:boards) { [board, board2] }
 
       it "renders the user's boards" do
@@ -78,14 +78,14 @@ describe Api::BoardsController do
       end
 
       it "destroys a user's boards" do
-        allow(@board).to receive(:is_owner?).and_return(true)
+        mock_board_ownership(@board, true)
         expect do
           delete :destroy, { id: @board.id }
         end.to change(Board, :count).by(-1)
       end
 
       it "does not allow a user to destroy a board belonging to another user" do
-        allow(@board).to receive(:is_owner?).and_return(false)
+        mock_board_ownership(@board, false)
         expect do
           delete :destroy, { id: @board.id }
         end.to_not change(Board, :count)

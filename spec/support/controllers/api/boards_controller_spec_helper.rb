@@ -1,7 +1,8 @@
 module BoardsControllerSpecHelper
 
   def mock_board_model(board)
-      allow(Board).to receive(:find).and_return(board)
+      allow(Board).to receive(:find).with(board.id.to_s).and_return(board)
+      allow(Board).to receive(:find).with(board.id).and_return(board)
   end
 
   def create_and_mock_board
@@ -11,7 +12,7 @@ module BoardsControllerSpecHelper
 
   def update_board_title
     patch :update, { id: @board.id, board: {title: "a new title"} }
-    @board.reload
+    @board.reload(id: @board.id)
   end
 
   def confirm_start_title
