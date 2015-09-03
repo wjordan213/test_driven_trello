@@ -51,7 +51,6 @@ describe Api::BoardsController do
     end
 
     describe "#show" do
-
       before(:each) do
         mock_board_model(board)
       end
