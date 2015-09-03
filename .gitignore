@@ -11,7 +11,7 @@
 *.swp
 *.rbc
 capybara-*.html
-.rspec
+# .rspec
 /log
 /tmp
 /db/*.sqlite3
