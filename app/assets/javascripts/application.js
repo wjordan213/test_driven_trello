@@ -12,5 +12,13 @@
 //
 //= require jquery
 //= require jquery_ujs
+//= require react
 //= require turbolinks
+//= require underscore
+//= require backbone
+//= require test_driven_trello
+//= require_tree ./models
+//= require_tree ./collections
+//= require_tree ./components
+//= require_tree ./routers
 //= require_tree .
