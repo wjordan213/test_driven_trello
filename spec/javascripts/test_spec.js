@@ -116,6 +116,15 @@ describe ("Boards Collection", function() {
           .toEqual("/api/boards");
       });
 
+      it("should parse boards from the response", function() {
+        this.boards.fetch();
+        this.server.respond();
+        expect(this.boards.length)
+          .toEqual(this.fixture.response.boards.length);
+        expect(this.boards.get(1).get('title'))
+          .toEqual(this.fixture.response.boards[0].title);
+      }); 
+
     });
 
 });
