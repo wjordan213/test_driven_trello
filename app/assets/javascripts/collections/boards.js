@@ -1,4 +1,4 @@
-TestDrivenTrello.Collections.Boards = Backbone.Model.extend({
-  url: '/api/boards',
-  model: TestDrivenTrello.Models.Note
+TestDrivenTrello.Collections.Boards = Backbone.Collection.extend({
+  model: TestDrivenTrello.Models.Board,
+  url: "/api/boards"
 });
